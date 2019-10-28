@@ -3,8 +3,8 @@ import Login from "./pages/login";
 
 function App() {
   return (
-    <div className="App">
-      <Login title="Ola"/>
+    <div> 
+      <Login />
     </div>
   );
 }

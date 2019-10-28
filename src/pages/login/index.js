@@ -1,41 +1,38 @@
 import React, { useState } from 'react';
-import api from '../../config/service'
-
-export default function Login(props) {
-    const [email, setEmail] = useState('')
-    const [senha, setSenha] = useState('')
+import './style.css'
 
 
-    function handleSubmit(e){
-        e.preventDefault()
-        
-        async function axios(){
-            await api.post('auth/login', {
-                email,
-                senha
-            }).then((response) => {
-                localStorage.setItem('token', response.data.token)
-                console.log(response.data.token);
-                
-                
-            }).catch((err) => {
-                console.log("Deu ruim")
-            })
-        }
-        
-        axios()
-    }
 
+const Teste1 = () => {
+    return(
+        <h1>teste1</h1>
+    )
+}
+
+const Teste2 = () => {
+    return(
+        <h1>teste2</h1>
+    )
+}
+
+const teste = (e) => {
+    console.log(e)
+}
+
+
+export default function Login() {
+    const [ aparecer, setAparecer] = useState(true);
+    
     return (
         <div className="container">
-            <h1>{props.title}</h1>
+            <button onClick={() => setAparecer(true)}>Aparecer 1</button> 
+            <button onClick={() => setAparecer(false)}>Aparecer 2</button> 
+            {aparecer && <Teste1 />}
+            {!aparecer && <Teste2 />}
+            <button onClick={() => teste(aparecer)}>Entrar</button> 
 
-            <form onSubmit={handleSubmit}>
-                Email: <input type="text" onChange={ e => setEmail(e.target.value)} />
-                Senha: <input type="password" onChange={ e => setSenha(e.target.value)} />
-                <button type="submit">Enviar</button>
-            </form>
         </div>
     )
 }
+
 
