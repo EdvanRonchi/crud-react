@@ -1,4 +1,13 @@
 .container {
-    width: 90%;
-    align-content: center;
+    width: 400px;
+    height: 400px;
+    margin-top: 150px;
+    display: flex;
+    padding: 40px;
+    border-radius: 5px;
+    background: white;
+}
+
+body {
+    background: -webkit-linear-gradient(left,#6051e6 6%,#5966e7 25%,#4f81e9 55%,#499bea 69%,#43a5eb 83%,#3bbeec 99%);
 }
