@@ -21,4 +21,9 @@ body {
     filter: hue-rotate(-10deg) grayscale(.15);
     cursor: pointer;
     align-items: center;
+    display: flex;
+}
+
+.alerta svg {
+    margin-bottom: 4px;
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FaRegTired } from "react-icons/fa";
+import { FaTimesCircle } from "react-icons/fa";
 import api from '../../config/service'
 import 'bootstrap/dist/css/bootstrap.css'
 import './style.css';
@@ -35,8 +35,8 @@ export default function LoginRegister() {
     
     const Alerta = (props) => {
         return (
-            <div className="alerta">
-                <span><FaRegTired/> {props.mensagem}</span>
+            <div className="alerta" onMouseMove={() => setAlert({show: false})}>
+                <span><FaTimesCircle/> {props.mensagem}</span>
             </div>    
         )
     }
@@ -55,8 +55,10 @@ export default function LoginRegister() {
                     console.log("Deu Bom, logado")
                     
                 }).catch((err) => {
+                    var message = (err.response)? err.response.data.error : "Erro ao logar"
+                    
                     setAlert({
-                        mensagem: "teste",
+                        mensagem: message,
                         show: true
                     })
                 })
@@ -65,8 +67,14 @@ export default function LoginRegister() {
             axios()
            
         }else{
-            if(cadastro.senha !== cadastro.senha2)
-                return console.log("Senha não gemeas")
+            if(cadastro.senha !== cadastro.senha2){
+                setAlert({
+                    mensagem: "Senhas não coincidem",
+                    show: true
+                })
+
+                return false
+            }
 
             async function axios(){
                 await api.post('auth/register', {
@@ -79,7 +87,12 @@ export default function LoginRegister() {
                     console.log("Deu Bom, registrado");
                     
                 }).catch((err) => {
-                    console.log("Deu ruim")
+                    var message = (err.response)? err.response.data.error : "Erro ao cadastrar"
+                    
+                    setAlert({
+                        mensagem: message,
+                        show: true
+                    }) 
                 })
             }
 
