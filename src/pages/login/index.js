@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { FaRegTired } from "react-icons/fa";
 import api from '../../config/service'
 import 'bootstrap/dist/css/bootstrap.css'
-import './style.css'
+import './style.css';
 
 export default function LoginRegister() {
-    const [ show, setShow] = useState(true);
-    const [ namebtn, setNamebtn] = useState('Login');
-    
+    const [ show, setShow] = useState(true)
+    const [ namebtn, setNamebtn] = useState('Login')
+
     const [ login, setLogin] = useState({
         email: '',
         senha: ''
@@ -19,6 +20,11 @@ export default function LoginRegister() {
         senha2: ''
     })
 
+    const [ alert, setAlert] = useState({
+        mensagem: '',
+        show: false
+    })
+
     const updateLogin = (field, value) => {
         setLogin({ ...login, [field]: value })
     };
@@ -26,6 +32,14 @@ export default function LoginRegister() {
     const updateCadastro = (field, value) => {
         setCadastro({ ...cadastro, [field]: value })
     };
+    
+    const Alerta = (props) => {
+        return (
+            <div className="alerta">
+                <span><FaRegTired/> {props.mensagem}</span>
+            </div>    
+        )
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -33,7 +47,7 @@ export default function LoginRegister() {
         if(show === true){
             async function axios(){
                 await api.post('auth/login', {
-                    email: login.email,
+                    email: login.email+"@react.com",
                     senha: login.senha
 
                 }).then((response) => {
@@ -41,7 +55,10 @@ export default function LoginRegister() {
                     console.log("Deu Bom, logado")
                     
                 }).catch((err) => {
-                    console.log("Deu ruim")
+                    setAlert({
+                        mensagem: "teste",
+                        show: true
+                    })
                 })
             }
             
@@ -54,7 +71,7 @@ export default function LoginRegister() {
             async function axios(){
                 await api.post('auth/register', {
                     nome:  cadastro.nome,
-                    email: cadastro.email,
+                    email: cadastro.email+"@react.com",
                     senha: cadastro.senha
 
                 }).then((response) => {
@@ -74,6 +91,7 @@ export default function LoginRegister() {
         <div className="container">
             <form onSubmit={handleSubmit}>
                 <div className="botao">  
+                    {alert.show && <Alerta mensagem={alert.mensagem}/>}
                     <div className="btn-group btn-block mb-2" role="group">
                         <button type="button" className="btn btn-secondary" onClick={() => {setShow(true); setNamebtn('Login')}}>Login</button> 
                         <button type="button" className="btn btn-secondary" onClick={() => {setShow(false); setNamebtn('Cadastrar')}}>Cadastrar</button> 

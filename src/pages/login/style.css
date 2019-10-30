@@ -1,3 +1,7 @@
+body {
+    background: -webkit-linear-gradient(left,#020202 6%,#141416 25%,#313336 55%,#2d2f31 69%,#36393b 83%,#5d5f5f 99%);
+}
+
 .container {
     width: 400px;
     margin-top: 150px;
@@ -7,6 +11,14 @@
     background: white;
 }
 
-body {
-    background: -webkit-linear-gradient(left,#020202 6%,#141416 25%,#313336 55%,#2d2f31 69%,#36393b 83%,#5d5f5f 99%);
+.alerta {
+    height: 50px;
+    background: #e53a3a;
+    border-radius: 5px;
+    color: #fafafa;
+    margin-bottom: 10px;
+    padding: 15px;
+    filter: hue-rotate(-10deg) grayscale(.15);
+    cursor: pointer;
+    align-items: center;
 }
