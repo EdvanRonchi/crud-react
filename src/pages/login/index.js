@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
-import { FaTimesCircle } from "react-icons/fa";
+import { ToastContainer, toast } from 'react-toastify';
+import { Redirect, Route } from "react-router-dom"
+
+import 'react-toastify/dist/ReactToastify.css';
+
 import api from '../../config/service'
 import 'bootstrap/dist/css/bootstrap.css'
 import './style.css';
@@ -20,11 +24,6 @@ export default function LoginRegister() {
         senha2: ''
     })
 
-    const [ alert, setAlert] = useState({
-        mensagem: '',
-        show: false
-    })
-
     const updateLogin = (field, value) => {
         setLogin({ ...login, [field]: value })
     };
@@ -33,17 +32,10 @@ export default function LoginRegister() {
         setCadastro({ ...cadastro, [field]: value })
     };
     
-    const Alerta = (props) => {
-        return (
-            <div className="alerta" onMouseMove={() => setAlert({show: false})}>
-                <span><FaTimesCircle/> {props.mensagem}</span>
-            </div>    
-        )
-    }
-
     const handleSubmit = (e) => {
         e.preventDefault()
         
+
         if(show === true){
             async function axios(){
                 await api.post('auth/login', {
@@ -52,15 +44,14 @@ export default function LoginRegister() {
 
                 }).then((response) => {
                     localStorage.setItem('token', response.data.token)
-                    console.log("Deu Bom, logado")
+                    toast.success('Logado com sucesso')
+                    
+                    
                     
                 }).catch((err) => {
-                    var message = (err.response)? err.response.data.error : "Erro ao logar"
+                    var mensagem = (err.response)? err.response.data.error : "Erro ao logar"
                     
-                    setAlert({
-                        mensagem: message,
-                        show: true
-                    })
+                    toast.error(mensagem)
                 })
             }
             
@@ -68,11 +59,7 @@ export default function LoginRegister() {
            
         }else{
             if(cadastro.senha !== cadastro.senha2){
-                setAlert({
-                    mensagem: "Senhas não coincidem",
-                    show: true
-                })
-
+                toast.error("Senhas não coincidem")
                 return false
             }
 
@@ -84,32 +71,31 @@ export default function LoginRegister() {
 
                 }).then((response) => {
                     localStorage.setItem('token', response.data.token)
-                    console.log("Deu Bom, registrado");
+                    toast.success('Registrado com sucesso')
                     
                 }).catch((err) => {
-                    var message = (err.response)? err.response.data.error : "Erro ao cadastrar"
+                    var mensagem = (err.response)? err.response.data.error : "Erro ao cadastrar"
                     
-                    setAlert({
-                        mensagem: message,
-                        show: true
-                    }) 
+                    toast.error(mensagem)
                 })
             }
 
             axios()
         }
     }
-
     return (
         <div className="container">
             <form onSubmit={handleSubmit}>
                 <div className="botao">  
-                    {alert.show && <Alerta mensagem={alert.mensagem}/>}
+                    <ToastContainer 
+                        position="top-center"
+                    />
                     <div className="btn-group btn-block mb-2" role="group">
                         <button type="button" className="btn btn-secondary" onClick={() => {setShow(true); setNamebtn('Login')}}>Login</button> 
                         <button type="button" className="btn btn-secondary" onClick={() => {setShow(false); setNamebtn('Cadastrar')}}>Cadastrar</button> 
                     </div>
                 </div>
+                
                 <div className="box">
                     {show && (
                         <div>
@@ -149,5 +135,3 @@ export default function LoginRegister() {
         </div>
     )
 }
-
-

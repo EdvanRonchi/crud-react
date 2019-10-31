@@ -1,7 +1,3 @@
-body {
-    background: -webkit-linear-gradient(left,#020202 6%,#141416 25%,#313336 55%,#2d2f31 69%,#36393b 83%,#5d5f5f 99%);
-}
-
 .container {
     width: 400px;
     margin-top: 150px;
@@ -9,6 +5,7 @@ body {
     padding: 40px;
     border-radius: 5px;
     background: white;
+    box-shadow: 2px 2px 2px 2px #dad9d9;
 }
 
 .alerta {
