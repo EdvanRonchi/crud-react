@@ -1,7 +1,10 @@
-.container {
-    width: 400px;
-    margin-top: 150px;
+.container-box {
+    justify-content: center;
     display: flex;
+}
+
+.container-login {
+    margin-top: 150px;
     padding: 40px;
     border-radius: 5px;
     background: white;
@@ -24,3 +27,4 @@
 .alerta svg {
     margin-bottom: 4px;
 }
+

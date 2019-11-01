@@ -1,13 +1,11 @@
-import React, { useState } from 'react'
-import api from '../../config/service'
-
-import 'bootstrap/dist/css/bootstrap.css'
+import Header from "../../components/header";
+import React from 'react'
 import './style.css';
 
 export default function Main() {
     return (
         <div>
-            <h1>Teste</h1>
+            <Header />
         </div>
     )
 }
